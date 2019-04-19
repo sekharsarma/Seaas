@@ -29,5 +29,7 @@ public class JerseyClientTest {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+
+        // testing commit
     }
 }
