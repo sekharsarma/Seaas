@@ -1,5 +1,6 @@
 package com.oracle.seaas.test;
 
+import com.oracle.seaas.model.LookupList;
 import com.oracle.seaas.util.JerseyClient;
 import com.oracle.seaas.util.TokenProvider;
 
@@ -11,9 +12,16 @@ import java.net.URISyntaxException;
 
 public class JerseyClientTest {
 
-    private static String defaultUrl = "https://eeho-dev5.fa.us2.oraclecloud.com/crmRestApi/resources/latest/resources?q=EmailAddress%3Dparashar.gupta%40oracle.com";
 
     public static void main(String[] args) {
+        //getResources();
+
+        getLookups();
+    }
+
+    private static void getResources(){
+        String defaultUrl = "https://eeho-dev5.fa.us2.oraclecloud.com/crmRestApi/resources/latest/resources?q=EmailAddress%3Dparashar.gupta%40oracle.com";
+
         MultivaluedMap<String, String> headers = new MultivaluedHashMap<>();
         URI url = null;
         try {
@@ -29,7 +37,30 @@ public class JerseyClientTest {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-
-        // testing commit
     }
+
+    private static void getLookups(){
+        String defaultUrl = "https://eeho-dev5.fa.us2.oraclecloud.com/crmRestApi/resources/latest/fndStaticLookups?finder=LookupTypeIsEnabledFinder;BindLookupType=ORA_SVC_SR_STATUS_CD&fields=LookupType,LookupCode,Meaning,Description,EnabledFlag,StartDateActive,EndDateActive,DisplaySequence,CreatedBy,CreationDate,LastUpdateDate,LastUpdateLogin,LastUpdatedBy";
+
+        MultivaluedMap<String, String> headers = new MultivaluedHashMap<>();
+        URI url = null;
+        try {
+            url = new URI(defaultUrl);
+
+            Response response = new JerseyClient(TokenProvider
+                    .builder()
+                    .withDefaultAuthString()
+                    .build())
+                    .proxyGetCalls(url, headers);
+
+            LookupList result = response.readEntity(LookupList.class);
+            System.out.println("result --->"+ result);
+
+            //System.out.println(response.readEntity(String.class));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

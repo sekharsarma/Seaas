@@ -15,6 +15,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.List;
+import org.glassfish.jersey.jackson.JacksonFeature;
 
 @Slf4j
 public class JerseyClient {
@@ -31,8 +32,12 @@ public class JerseyClient {
 
     public JerseyClient(TokenProvider tokenProvider) {
         this.tokenProvider = tokenProvider;
-        this.client = ClientBuilder.newBuilder().withConfig(new ClientConfig()).build();
+
+        ClientConfig config = new ClientConfig();
+        this.client = ClientBuilder.newBuilder().withConfig(config).build();
         client.register(new CustomClientLoggingFilter(log, LoggingFeature.DEFAULT_MAX_ENTITY_SIZE,skipLoggingHeaders));
+        client.register(new JacksonFeature());
+
         log.info("PartnerHttpClient instantiated");
     }
 
