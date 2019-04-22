@@ -4,9 +4,25 @@ import com.oracle.seaas.model.Lookup;
 
 import java.util.List;
 
-public interface CrmAPIClient {
+public interface CRMAPIClient {
 
-    public enum lookupType {SR_STATUS, PRODUCT_PILLARS, PLATFORMS, LANGUAGES};
+    public enum lookupType
+    {
+        SR_STATUS("ORA_SVC_SR_STATUS_CD"),
+        PRODUCT_PILLARS("ORA_SVC_SR_STATUS_CD"),
+        PLATFORMS("ORA_SVC_SR_STATUS_CD"),
+        LANGUAGES("ORA_SVC_SR_STATUS_CD");
+
+        private final String lookupTypeCode;
+
+        lookupType(String lookupTypeCode) {
+            this.lookupTypeCode = lookupTypeCode;
+        }
+
+        public String getLookupTypeCode(){
+            return this.lookupTypeCode;
+        }
+    };
 
     List<Lookup> getServiceRequestStatuses();
 
