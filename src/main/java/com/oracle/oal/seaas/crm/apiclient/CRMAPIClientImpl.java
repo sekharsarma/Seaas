@@ -9,37 +9,32 @@ import com.oracle.oal.seaas.crm.apiclient.model.Lookup;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.oracle.oal.seaas.crm.apiclient.model.LookupType;
 import com.oracle.oal.seaas.crm.apiclient.model.Resource;
+import lombok.NonNull;
 
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+// todo: provide log statements.
 public class CRMAPIClientImpl implements CRMAPIClient {
 
-    private static CRMAPIClientImpl _apiClient;
-
-    private  CacheLoader<String, List<Lookup>> lookupCacheLoader;
-
     LoadingCache<LookupType, List<Lookup>> lookupCache;
-    LoadingCache<String, List<Resource>> resourceCache;
+    LoadingCache<String, Resource> resourceCache;
 
     CRMAPIRESTService restService;
 
     private CRMAPIClientImpl()
     {
-       lookupCache = buildCache(this::getLookupsList);
-       resourceCache = buildCache(this::getResourcesList);
+       lookupCache = buildCache(this::getLookupsFromService);
+       resourceCache = buildCache(this::getResourcesFromService);
        restService = new CRMAPIRESTService();
     }
 
     public static CRMAPIClientImpl getInstance() {
-       return SingletonHelper.INSTANCE;
-    }
-
-    private static class SingletonHelper{
-        private static final CRMAPIClientImpl INSTANCE = new CRMAPIClientImpl();
+       return CRMAPIClientInstance.INSTANCE;
     }
 
     public List<Lookup> getServiceRequestStatuses() {
@@ -58,19 +53,20 @@ public class CRMAPIClientImpl implements CRMAPIClient {
         return getFromCache(lookupCache, LookupType.LANGUAGES);
     }
 
-    public List<Resource> getResources(String emailAddress) {
+    public Resource getResource(@NonNull final String emailAddress) {
         return getFromCache(resourceCache, emailAddress);
     }
 
-    private List<Lookup> getLookupsList(LookupType lookupType){
+    private List<Lookup> getLookupsFromService(LookupType lookupType){
        return restService.getLookupCollection(lookupType);
     }
 
-    private List<Resource> getResourcesList(String emailAddress){
-        return restService.getResourceCollection(emailAddress);
+    private Resource getResourcesFromService(String emailAddress){
+        return restService.getResource(emailAddress);
     }
 
     private <K, V> LoadingCache<K, V> buildCache(Function<K, V> loadFunction) {
+        // todo: check the number of defualt threads and access scope of the pool variable
         ListeningExecutorService pool = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(10));
 
         final CacheLoader<K, V> loader =
@@ -80,6 +76,7 @@ public class CRMAPIClientImpl implements CRMAPIClient {
                         return loadFunction.apply(key);
                     }
 
+                    // todo: test the async method with multiple user threads
                     @Override
                     public ListenableFuture<V> reload(K key, V oldValue){
                         ListenableFuture<V> listenableFuture = pool.submit(new Callable<V>() {
@@ -92,6 +89,7 @@ public class CRMAPIClientImpl implements CRMAPIClient {
                     }
                 };
 
+        //todo: externalize the configurations.
         return CacheBuilder.newBuilder()
                 .maximumSize(100)
                 .refreshAfterWrite(30, TimeUnit.SECONDS)
@@ -102,9 +100,14 @@ public class CRMAPIClientImpl implements CRMAPIClient {
         try {
             return cache.getUnchecked(cacheKey);
         } catch (UncheckedExecutionException e) {
-            // Unpackaging any ClassicMarketplaceApiClientException and throwing it.
-            //Throwables.propagateIfPossible(e.getCause(), ClassicMarketplaceApiClientException.class);
+            //
             throw e;
         }
     }
+
+    // preferred way to create a singleton instance for lazy fetch.
+    private static class CRMAPIClientInstance{
+        private static final CRMAPIClientImpl INSTANCE = new CRMAPIClientImpl();
+    }
+
 }

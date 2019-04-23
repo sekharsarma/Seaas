@@ -1,6 +1,7 @@
 package com.oracle.oal.seaas.crm.apiclient;
 
 import com.oracle.oal.seaas.crm.apiclient.model.Lookup;
+import com.oracle.oal.seaas.crm.apiclient.model.LookupType;
 import com.oracle.oal.seaas.crm.apiclient.model.Resource;
 import org.junit.jupiter.api.Test;
 import java.util.List;
@@ -21,7 +22,7 @@ public class CRMAPIRESTServiceTest {
 
     @Test
     public void getResourceCollection(){
-        List<Resource> resourcesList = restService.getResourceCollection("parashar.gupta%40oracle.com");
+        Resource resource = restService.getResource("parashar.gupta%40oracle.com");
     }
 
 

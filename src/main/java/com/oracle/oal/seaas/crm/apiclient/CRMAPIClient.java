@@ -2,6 +2,7 @@ package com.oracle.oal.seaas.crm.apiclient;
 
 import com.oracle.oal.seaas.crm.apiclient.model.Lookup;
 import com.oracle.oal.seaas.crm.apiclient.model.Resource;
+import lombok.NonNull;
 
 import java.util.List;
 
@@ -10,32 +11,32 @@ public interface CRMAPIClient {
 
     /**
      * Returns service request statuses.
-     * @return
+     * @return List<Lookup>
      */
     List<Lookup> getServiceRequestStatuses();
 
     /**
      * Returns product pillars
-     * @return
+     * @return List<Lookup>
      */
     List<Lookup> getProductPillars();
 
     /**
      * Returns platforms
-     * @return
+     * @return List<Lookup>
      */
     List<Lookup> getPlatforms();
 
     /**
      * Returns languages
-     * @return
+     * @return List<Lookup>
      */
     List<Lookup> getLanguages();
 
     /**
-     * Returns resources for given email address
+     * Returns resource for given email address
      * @param emailAddress
-     * @return
+     * @return Resource
      */
-    List<Resource> getResources(String emailAddress);
+    Resource getResource(@NonNull String emailAddress);
 }

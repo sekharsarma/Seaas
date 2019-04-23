@@ -12,7 +12,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 
-public class ResourcesList {
+public class ResourceList {
 
     @JsonProperty("items")
     private List<Resource> items = null;

@@ -22,10 +22,10 @@ public class HTTPClient {
 
     // We should not print the following headers. It is case sensitive, give exact header name
     private final List<String> skipLoggingHeaders = ImmutableList.of("Authorization");
-    private TokenProvider tokenProvider;
+    private CredentialProvider tokenProvider;
 
 
-    public HTTPClient(TokenProvider tokenProvider) {
+    public HTTPClient(CredentialProvider tokenProvider) {
         this.tokenProvider = tokenProvider;
 
         ClientConfig config = new ClientConfig();
@@ -123,6 +123,7 @@ public class HTTPClient {
         return invocationBuilder;
     }
 
+    // todo: HTTPClient is generic, no specific auth mechanism allowed here.
     private void addAuthorizationHeader(Invocation.Builder builder)
     {
         String token = String.format("Basic %s",

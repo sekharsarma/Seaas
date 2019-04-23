@@ -20,8 +20,10 @@ public class Test {
         while (true) {
             Thread.sleep(1000);
             //LOG.info(" "+ client.getServiceRequestStatuses());
-            LOG.info(" "+client.getResources("parashar.gupta%40oracle.com"));
+            LOG.info(" "+client.getResource("parashar.gupta%40oracle.com"));
         }
+
+
 
 
     }

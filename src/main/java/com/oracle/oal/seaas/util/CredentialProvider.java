@@ -1,12 +1,12 @@
 package com.oracle.oal.seaas.util;
 
-public class TokenProvider {
+public class CredentialProvider {
 
     private String token;
 
     private static TokenProviderBuilder builder = new TokenProviderBuilder();
 
-    private TokenProvider(String token){
+    private CredentialProvider(String token){
         this.token = token;
     }
 
@@ -28,8 +28,8 @@ public class TokenProvider {
             return  this;
         }
 
-        public TokenProvider build(){
-           return new TokenProvider(this.authString);
+        public CredentialProvider build(){
+           return new CredentialProvider(this.authString);
         }
 
     }

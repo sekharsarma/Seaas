@@ -1,6 +1,6 @@
-package com.oracle.oal.seaas.crm.apiclient;
+package com.oracle.oal.seaas.crm.apiclient.model;
 
-enum LookupType {
+public enum LookupType {
     // todo: get valid lookup type codes from requirement
     SR_STATUS("ORA_SVC_SR_STATUS_CD"),
     PRODUCT_PILLARS("ORA_SVC_SR_STATUS_CD"),
