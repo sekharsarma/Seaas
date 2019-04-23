@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class HTTPClient {
-    private static final Logger log = Logger.getLogger(JerseyClient.class.getName());
+    private static final Logger log = Logger.getLogger(HTTPClient.class.getName());
     private Client client;
 
     // We should not print the following headers. It is case sensitive, give exact header name
