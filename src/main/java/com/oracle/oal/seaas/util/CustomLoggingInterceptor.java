@@ -1,4 +1,4 @@
-package com.oracle.seaas.filters;
+package com.oracle.oal.seaas.util;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.glassfish.jersey.message.MessageUtils;

@@ -1,6 +1,6 @@
-package com.oracle.seaas.apiclient.crm;
+package com.oracle.oal.seaas.crm.apiclient;
 
-import com.oracle.seaas.model.Lookup;
+import com.oracle.oal.seaas.crm.apiclient.model.Lookup;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.oracle.seaas.util;
+package com.oracle.oal.seaas.util;
 
 public class TokenProvider {
 

@@ -1,4 +1,4 @@
-package com.oracle.seaas.model;
+package com.oracle.oal.seaas.crm.apiclient.model;
 
 import java.util.List;
 import com.fasterxml.jackson.annotation.*;

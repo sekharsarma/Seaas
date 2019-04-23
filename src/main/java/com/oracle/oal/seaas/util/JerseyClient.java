@@ -1,11 +1,9 @@
-package com.oracle.seaas.util;
+package com.oracle.oal.seaas.util;
 
 import com.google.common.collect.ImmutableList;
-import com.oracle.seaas.filters.CustomClientLoggingFilter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.glassfish.jersey.client.ClientConfig;
-import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.logging.LoggingFeature;
 
 import javax.ws.rs.client.*;

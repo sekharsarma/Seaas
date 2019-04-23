@@ -1,4 +1,4 @@
-package com.oracle.seaas.model;
+package com.oracle.oal.seaas.crm.apiclient.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

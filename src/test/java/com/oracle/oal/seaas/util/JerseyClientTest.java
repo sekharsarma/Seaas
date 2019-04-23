@@ -1,9 +1,9 @@
-package com.oracle.seaas.test;
+package com.oracle.oal.seaas.util;
 
-import com.oracle.seaas.apiclient.crm.CRMAPIRESTService;
-import com.oracle.seaas.model.LookupList;
-import com.oracle.seaas.util.JerseyClient;
-import com.oracle.seaas.util.TokenProvider;
+import com.oracle.oal.seaas.crm.apiclient.CRMAPIRESTService;
+import com.oracle.oal.seaas.crm.apiclient.model.LookupList;
+import com.oracle.oal.seaas.util.JerseyClient;
+import com.oracle.oal.seaas.util.TokenProvider;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;

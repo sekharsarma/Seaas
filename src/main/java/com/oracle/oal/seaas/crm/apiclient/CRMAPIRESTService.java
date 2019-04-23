@@ -1,16 +1,15 @@
-package com.oracle.seaas.apiclient.crm;
+package com.oracle.oal.seaas.crm.apiclient;
 
-import com.oracle.seaas.model.Lookup;
-import com.oracle.seaas.model.LookupList;
-import com.oracle.seaas.util.JerseyClient;
-import com.oracle.seaas.util.TokenProvider;
+import com.oracle.oal.seaas.crm.apiclient.model.LookupList;
+import com.oracle.oal.seaas.util.JerseyClient;
+import com.oracle.oal.seaas.crm.apiclient.model.Lookup;
+import com.oracle.oal.seaas.util.TokenProvider;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CRMAPIRESTService {

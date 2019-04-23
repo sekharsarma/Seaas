@@ -1,4 +1,4 @@
-package com.oracle.seaas.filters;
+package com.oracle.oal.seaas.util;
 
 import org.glassfish.jersey.message.MessageUtils;
 import org.slf4j.Logger;

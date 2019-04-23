@@ -1,7 +1,7 @@
-package com.oracle.seaas.test;
+package com.oracle.oal.seaas.util;
 
-import com.oracle.seaas.apiclient.crm.CRMAPIClient;
-import com.oracle.seaas.apiclient.crm.CRMAPIClientImpl;
+import com.oracle.oal.seaas.crm.apiclient.CRMAPIClient;
+import com.oracle.oal.seaas.crm.apiclient.CRMAPIClientImpl;
 
 public class Test {
 
