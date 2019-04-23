@@ -9,6 +9,7 @@ import com.oracle.oal.seaas.crm.apiclient.model.Lookup;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.oracle.oal.seaas.crm.apiclient.model.Resource;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -22,11 +23,14 @@ public class CRMAPIClientImpl implements CRMAPIClient {
     private  CacheLoader<String, List<Lookup>> lookupCacheLoader;
 
     LoadingCache<LookupType, List<Lookup>> lookupCache;
+    LoadingCache<String, List<Resource>> resourceCache;
+
     CRMAPIRESTService restService;
 
     private CRMAPIClientImpl()
     {
-       lookupCache = buildCache(this::getLookups);
+       lookupCache = buildCache(this::getLookupsList);
+       resourceCache = buildCache(this::getResourcesList);
        restService = new CRMAPIRESTService();
     }
 
@@ -37,7 +41,6 @@ public class CRMAPIClientImpl implements CRMAPIClient {
     private static class SingletonHelper{
         private static final CRMAPIClientImpl INSTANCE = new CRMAPIClientImpl();
     }
-
 
     public List<Lookup> getServiceRequestStatuses() {
        return getFromCache(lookupCache, LookupType.SR_STATUS);
@@ -55,8 +58,16 @@ public class CRMAPIClientImpl implements CRMAPIClient {
         return getFromCache(lookupCache, LookupType.LANGUAGES);
     }
 
-    private List<Lookup> getLookups(LookupType lookupType){
+    public List<Resource> getResources(String emailAddress) {
+        return getFromCache(resourceCache, emailAddress);
+    }
+
+    private List<Lookup> getLookupsList(LookupType lookupType){
        return restService.getLookupCollection(lookupType);
+    }
+
+    private List<Resource> getResourcesList(String emailAddress){
+        return restService.getResourceCollection(emailAddress);
     }
 
     private <K, V> LoadingCache<K, V> buildCache(Function<K, V> loadFunction) {

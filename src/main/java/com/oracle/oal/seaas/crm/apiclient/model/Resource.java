@@ -53,9 +53,9 @@ import lombok.ToString;
 public class Resource {
 
     @JsonProperty("ResourceProfileId")
-    private Integer resourceProfileId;
+    private Long resourceProfileId;
     @JsonProperty("PartyId")
-    private Integer partyId;
+    private Long partyId;
     @JsonProperty("PartyName")
     private String partyName;
     @JsonProperty("PartyNumber")
@@ -109,7 +109,7 @@ public class Resource {
     @JsonProperty("PersonSecondLastName")
     private Object personSecondLastName;
     @JsonProperty("ManagerPartyId")
-    private Integer managerPartyId;
+    private Long managerPartyId;
     @JsonProperty("RecordSet")
     private Object recordSet;
     @JsonProperty("UpdateFlag")

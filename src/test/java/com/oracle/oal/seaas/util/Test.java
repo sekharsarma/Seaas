@@ -19,7 +19,8 @@ public class Test {
         LOG.info( "" + client.getServiceRequestStatuses());
         while (true) {
             Thread.sleep(1000);
-            LOG.info(" "+ client.getServiceRequestStatuses());
+            //LOG.info(" "+ client.getServiceRequestStatuses());
+            LOG.info(" "+client.getResources("parashar.gupta%40oracle.com"));
         }
 
 

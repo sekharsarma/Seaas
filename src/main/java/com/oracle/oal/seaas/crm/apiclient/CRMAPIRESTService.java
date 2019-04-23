@@ -2,6 +2,8 @@ package com.oracle.oal.seaas.crm.apiclient;
 
 import com.oracle.oal.seaas.crm.apiclient.model.Lookup;
 import com.oracle.oal.seaas.crm.apiclient.model.LookupList;
+import com.oracle.oal.seaas.crm.apiclient.model.Resource;
+import com.oracle.oal.seaas.crm.apiclient.model.ResourcesList;
 import com.oracle.oal.seaas.util.HTTPClient;
 import com.oracle.oal.seaas.util.TokenProvider;
 import lombok.NonNull;
@@ -63,30 +65,28 @@ class CRMAPIRESTService {
     }
 
     /**
-     * Returns static lookups.
-     * @param type lookup type
-     * @return List<Lookup>
+     * Returns resources list.
+     * @param emailAddress email address
+     * @return List<Resource>
      */
-    List<Lookup> getResourceCollection(@NonNull LookupType type) {
-        String defaultUrl = String.format("%s/fndStaticLookups?finder=LookupTypeIsEnabledFinder;BindLookupType=%s" +
-                "&fields=LookupType,LookupCode,Meaning,Description,EnabledFlag,StartDateActive,EndDateActive," +
-                "DisplaySequence,CreatedBy,CreationDate,LastUpdateDate,LastUpdateLogin,LastUpdatedBy", serviceURL, type.getLookupTypeCode());
+    List<Resource> getResourceCollection(@NonNull String emailAddress) {
+        String defaultUrl = String.format("%s/resources?q=EmailAddress=%s" , serviceURL, emailAddress);
 
-        LookupList lookupList = null;
-        LOG.info("Fetching lookups of type: " + type);
+        ResourcesList resourceList = null;
+        LOG.info("Fetching Resources for email: " + emailAddress);
 
         MultivaluedMap<String, String> headers = new MultivaluedHashMap<>();
         try {
             URI url = new URI(defaultUrl);
             Response response = httpClient.get(url, headers);
 
-            lookupList = response.readEntity(LookupList.class);
-            LOG.info("Completed fetching Lookups of type: " + type + ", lookups size : " + lookupList.getCount());
+            resourceList = response.readEntity(ResourcesList.class);
+            LOG.info("Completed fetching resources for email: " + emailAddress);
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Exception occurred while fetching Lookup collection", e);
         }
 
-        return Optional.ofNullable(lookupList.getItems()).orElse(Collections.emptyList());
+        return Optional.ofNullable(resourceList.getItems()).orElse(Collections.emptyList());
     }
 
 }
