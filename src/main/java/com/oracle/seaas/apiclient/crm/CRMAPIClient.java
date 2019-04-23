@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface CRMAPIClient {
 
+    // todo: put the real lookup type codes.
     public enum lookupType
     {
         SR_STATUS("ORA_SVC_SR_STATUS_CD"),

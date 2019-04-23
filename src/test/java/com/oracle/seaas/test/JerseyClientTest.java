@@ -1,5 +1,6 @@
 package com.oracle.seaas.test;
 
+import com.oracle.seaas.apiclient.crm.CRMAPIRESTService;
 import com.oracle.seaas.model.LookupList;
 import com.oracle.seaas.util.JerseyClient;
 import com.oracle.seaas.util.TokenProvider;
@@ -14,9 +15,10 @@ public class JerseyClientTest {
 
 
     public static void main(String[] args) {
-        //getResources();
+        CRMAPIRESTService
+                restService = new CRMAPIRESTService();
+        //restService.getLookupCollection
 
-        getLookups();
     }
 
     private static void getResources(){
