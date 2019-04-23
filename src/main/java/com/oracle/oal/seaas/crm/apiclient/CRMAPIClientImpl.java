@@ -17,12 +17,12 @@ import java.util.concurrent.TimeUnit;
 
 public class CRMAPIClientImpl implements CRMAPIClient {
 
-   private static CRMAPIClientImpl _apiClient = null;
+   private static CRMAPIClientImpl _apiClient;
 
    private  CacheLoader<String, List<Lookup>> lookupCacheLoader;
 
-   LoadingCache<lookupType, List<Lookup>> lookupCache = null;
-   CRMAPIRESTService restService = null;
+   LoadingCache<LookupType, List<Lookup>> lookupCache;
+   CRMAPIRESTService restService;
 
    private CRMAPIClientImpl()
    {
@@ -31,31 +31,32 @@ public class CRMAPIClientImpl implements CRMAPIClient {
        restService = new CRMAPIRESTService();
    }
 
-   public static synchronized CRMAPIClientImpl newInstance() {
-        if(_apiClient == null) {
-            _apiClient = new CRMAPIClientImpl();
-        }
-        return _apiClient;
+   public static synchronized CRMAPIClientImpl getInstance() {
+       return SingletonHelper.INSTANCE;
    }
+
+    private static class SingletonHelper{
+        private static final CRMAPIClientImpl INSTANCE = new CRMAPIClientImpl();
+    }
 
 
     public List<Lookup> getServiceRequestStatuses() {
-       return getFromCache(lookupCache, lookupType.SR_STATUS);
+       return getFromCache(lookupCache, LookupType.SR_STATUS);
     }
 
     public List<Lookup> getProductPillars() {
-        return getFromCache(lookupCache, lookupType.PRODUCT_PILLARS);
+        return getFromCache(lookupCache, LookupType.PRODUCT_PILLARS);
     }
 
     public List<Lookup> getPlatforms() {
-        return getFromCache(lookupCache, lookupType.PLATFORMS);
+        return getFromCache(lookupCache, LookupType.PLATFORMS);
     }
 
     public List<Lookup> getLanguages() {
-        return getFromCache(lookupCache, lookupType.LANGUAGES);
+        return getFromCache(lookupCache, LookupType.LANGUAGES);
     }
 
-    private List<Lookup> getLookups(lookupType lookupType){
+    private List<Lookup> getLookups(LookupType lookupType){
        return restService.getLookupCollection(lookupType);
     }
 

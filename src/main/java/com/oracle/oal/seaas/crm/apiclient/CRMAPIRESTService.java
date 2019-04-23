@@ -2,7 +2,7 @@ package com.oracle.oal.seaas.crm.apiclient;
 
 import com.oracle.oal.seaas.crm.apiclient.model.Lookup;
 import com.oracle.oal.seaas.crm.apiclient.model.LookupList;
-import com.oracle.oal.seaas.util.JerseyClient;
+import com.oracle.oal.seaas.util.HTTPClient;
 import com.oracle.oal.seaas.util.TokenProvider;
 
 import javax.ws.rs.core.MultivaluedHashMap;
@@ -21,7 +21,7 @@ public class CRMAPIRESTService {
      * @param type
      * @return
      */
-    List<Lookup> getLookupCollection(CRMAPIClient.lookupType type) {
+    List<Lookup> getLookupCollection(LookupType type) {
         String defaultUrl = "https://eeho-dev5.fa.us2.oraclecloud.com/crmRestApi/resources/latest/fndStaticLookups?finder=LookupTypeIsEnabledFinder;BindLookupType=" +
                 type.getLookupTypeCode() +"&fields=LookupType,LookupCode,Meaning,Description,EnabledFlag,StartDateActive,EndDateActive,DisplaySequence,CreatedBy,CreationDate,LastUpdateDate,LastUpdateLogin,LastUpdatedBy";
 
@@ -33,11 +33,11 @@ public class CRMAPIRESTService {
         try {
             url = new URI(defaultUrl);
 
-            Response response = new JerseyClient(TokenProvider
+            Response response = new HTTPClient(TokenProvider
                     .builder()
                     .withDefaultAuthString()
                     .build())
-                    .proxyGetCalls(url, headers);
+                    .get(url, headers);
 
             lookupList = response.readEntity(LookupList.class);
             LOG.info("Completed fetching Lookups of type: " + type + ", lookups size : " + lookupList);

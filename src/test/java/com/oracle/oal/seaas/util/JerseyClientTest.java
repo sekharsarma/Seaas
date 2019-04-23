@@ -29,11 +29,11 @@ public class JerseyClientTest {
         try {
             url = new URI(defaultUrl);
 
-            Response response = new JerseyClient(TokenProvider
+            Response response = new HTTPClient(TokenProvider
                     .builder()
                     .withDefaultAuthString()
                     .build())
-                    .proxyGetCalls(url, headers);
+                    .get(url, headers);
 
             LOG.info(response.readEntity(String.class));
         } catch (URISyntaxException e) {
@@ -48,11 +48,13 @@ public class JerseyClientTest {
         URI url = null;
         try {
             url = new URI(defaultUrl);
-            Response response = new JerseyClient(TokenProvider
+
+            Response response = new HTTPClient(TokenProvider
                     .builder()
                     .withDefaultAuthString()
                     .build())
-                    .proxyGetCalls(url, headers);
+                    .get(url, headers);
+
             LookupList result = response.readEntity(LookupList.class);
             LOG.info("Lookups: " + result);
         } catch (URISyntaxException e) {

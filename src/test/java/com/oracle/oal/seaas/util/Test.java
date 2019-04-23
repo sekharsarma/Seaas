@@ -9,7 +9,7 @@ public class Test {
     private static final Logger LOG = Logger.getLogger(Test.class.getName());
 
     public static void main(String args[]) throws Exception {
-        CRMAPIClient client = CRMAPIClientImpl.newInstance();
+        CRMAPIClient client = CRMAPIClientImpl.getInstance();
         /*
         for (int i = 0; i < 20; i++) {
             System.out.println(client.getServiceRequestStatuses());

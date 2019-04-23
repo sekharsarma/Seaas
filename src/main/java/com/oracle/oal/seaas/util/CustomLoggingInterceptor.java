@@ -73,9 +73,6 @@ abstract class CustomLoggingInterceptor implements WriterInterceptor {
             this.skipLoggingHeaders = new ArrayList<String>();
     }
 
-
-
-
     void printRequestLine(final StringBuilder b, final String note, final String method, final URI uri) {
         b.append(NOTIFICATION_PREFIX)
                 .append(note)
