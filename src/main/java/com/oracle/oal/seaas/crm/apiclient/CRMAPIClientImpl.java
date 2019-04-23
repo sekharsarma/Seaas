@@ -21,7 +21,7 @@ public class CRMAPIClientImpl implements CRMAPIClient {
 
    private  CacheLoader<String, List<Lookup>> lookupCacheLoader;
 
-   LoadingCache<lookupType, List<Lookup>> lookupCache = null;
+   LoadingCache<LookupType, List<Lookup>> lookupCache = null;
    CRMAPIRESTService restService = null;
 
    private CRMAPIClientImpl()
@@ -40,22 +40,22 @@ public class CRMAPIClientImpl implements CRMAPIClient {
 
 
     public List<Lookup> getServiceRequestStatuses() {
-       return getFromCache(lookupCache, lookupType.SR_STATUS);
+       return getFromCache(lookupCache, LookupType.SR_STATUS);
     }
 
     public List<Lookup> getProductPillars() {
-        return getFromCache(lookupCache, lookupType.PRODUCT_PILLARS);
+        return getFromCache(lookupCache, LookupType.PRODUCT_PILLARS);
     }
 
     public List<Lookup> getPlatforms() {
-        return getFromCache(lookupCache, lookupType.PLATFORMS);
+        return getFromCache(lookupCache, LookupType.PLATFORMS);
     }
 
     public List<Lookup> getLanguages() {
-        return getFromCache(lookupCache, lookupType.LANGUAGES);
+        return getFromCache(lookupCache, LookupType.LANGUAGES);
     }
 
-    private List<Lookup> getLookups(lookupType lookupType){
+    private List<Lookup> getLookups(LookupType lookupType){
        return restService.getLookupCollection(lookupType);
     }
 

@@ -18,7 +18,7 @@ public class CRMAPIRESTService {
      * @param type
      * @return
      */
-    List<Lookup> getLookupCollection(CRMAPIClient.lookupType type) {
+    List<Lookup> getLookupCollection(LookupType type) {
         String defaultUrl = "https://eeho-dev5.fa.us2.oraclecloud.com/crmRestApi/resources/latest/fndStaticLookups?finder=LookupTypeIsEnabledFinder;BindLookupType=" +
                 type.getLookupTypeCode() +"&fields=LookupType,LookupCode,Meaning,Description,EnabledFlag,StartDateActive,EndDateActive,DisplaySequence,CreatedBy,CreationDate,LastUpdateDate,LastUpdateLogin,LastUpdatedBy";
 
@@ -34,7 +34,7 @@ public class CRMAPIRESTService {
                     .builder()
                     .withDefaultAuthString()
                     .build())
-                    .proxyGetCalls(url, headers);
+                    .get(url, headers);
 
             lookupList = response.readEntity(LookupList.class);
             System.out.println("getLookupCollection for " + "type: " +type + lookupList);

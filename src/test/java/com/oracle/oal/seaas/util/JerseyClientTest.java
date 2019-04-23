@@ -31,7 +31,7 @@ public class JerseyClientTest {
                     .builder()
                     .withDefaultAuthString()
                     .build())
-                    .proxyGetCalls(url, headers);
+                    .get(url, headers);
 
             System.out.println(response.readEntity(String.class));
         } catch (URISyntaxException e) {
@@ -51,7 +51,7 @@ public class JerseyClientTest {
                     .builder()
                     .withDefaultAuthString()
                     .build())
-                    .proxyGetCalls(url, headers);
+                    .get(url, headers);
 
             LookupList result = response.readEntity(LookupList.class);
             System.out.println("result --->"+ result);

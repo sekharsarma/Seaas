@@ -14,6 +14,6 @@ public class CRMAPIRESTServiceTest {
 
     @Test
     public void getLookupCollection(){
-        List<Lookup> SRStatusLookupList = restService.getLookupCollection(CRMAPIClient.lookupType.SR_STATUS);
+        List<Lookup> SRStatusLookupList = restService.getLookupCollection(LookupType.SR_STATUS);
     }
 }
