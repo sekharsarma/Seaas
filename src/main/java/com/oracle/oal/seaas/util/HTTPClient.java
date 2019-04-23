@@ -86,7 +86,6 @@ public class HTTPClient {
     }
 
     /**
-     * Delegates the incoming call to the underlying OPC Marketplace REST
      *
      * @param url URI
      * @param headers MultivaluedMap<String, String>
@@ -103,7 +102,6 @@ public class HTTPClient {
     }
 
     /**
-     * Delegates the incoming call to the underlying OPC Marketplace REST
      *
      * @param url URI
      * @param headers MultivaluedMap<String, String>
