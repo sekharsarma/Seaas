@@ -26,7 +26,7 @@ import java.util.List;
 @PreMatching
 @Priority(Integer.MAX_VALUE)
 @SuppressWarnings("ClassWithMultipleLoggers")
-public final class CustomClientLoggingFilter extends CustomLoggingInterceptor implements ClientRequestFilter, ClientResponseFilter {
+final class CustomClientLoggingFilter extends CustomLoggingInterceptor implements ClientRequestFilter, ClientResponseFilter {
 
     private Logger log;
 

@@ -2,8 +2,6 @@ package com.oracle.oal.seaas.util;
 
 import com.oracle.oal.seaas.crm.apiclient.CRMAPIRESTService;
 import com.oracle.oal.seaas.crm.apiclient.model.LookupList;
-import com.oracle.oal.seaas.util.JerseyClient;
-import com.oracle.oal.seaas.util.TokenProvider;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
@@ -29,7 +27,7 @@ public class JerseyClientTest {
         try {
             url = new URI(defaultUrl);
 
-            Response response = new JerseyClient(TokenProvider
+            Response response = new HTTPClient(TokenProvider
                     .builder()
                     .withDefaultAuthString()
                     .build())
@@ -49,7 +47,7 @@ public class JerseyClientTest {
         try {
             url = new URI(defaultUrl);
 
-            Response response = new JerseyClient(TokenProvider
+            Response response = new HTTPClient(TokenProvider
                     .builder()
                     .withDefaultAuthString()
                     .build())

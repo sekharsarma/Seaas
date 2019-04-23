@@ -1,7 +1,7 @@
 package com.oracle.oal.seaas.crm.apiclient;
 
 import com.oracle.oal.seaas.crm.apiclient.model.LookupList;
-import com.oracle.oal.seaas.util.JerseyClient;
+import com.oracle.oal.seaas.util.HTTPClient;
 import com.oracle.oal.seaas.crm.apiclient.model.Lookup;
 import com.oracle.oal.seaas.util.TokenProvider;
 
@@ -30,7 +30,7 @@ public class CRMAPIRESTService {
         try {
             url = new URI(defaultUrl);
 
-            Response response = new JerseyClient(TokenProvider
+            Response response = new HTTPClient(TokenProvider
                     .builder()
                     .withDefaultAuthString()
                     .build())
