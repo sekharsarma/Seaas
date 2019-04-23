@@ -6,9 +6,6 @@ import java.util.List;
 
 public interface CRMAPIClient {
 
-    // todo: put the real lookup type codes.
-
-
     List<Lookup> getServiceRequestStatuses();
 
     List<Lookup> getProductPillars();
