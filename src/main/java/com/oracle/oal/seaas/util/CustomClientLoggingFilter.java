@@ -1,7 +1,6 @@
 package com.oracle.oal.seaas.util;
 
 import org.glassfish.jersey.message.MessageUtils;
-import org.slf4j.Logger;
 
 import javax.annotation.Priority;
 import javax.ws.rs.ConstrainedTo;
@@ -14,6 +13,7 @@ import javax.ws.rs.container.PreMatching;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Since there is no way to extend the ClientLoggingFilter provided by jersey code, adding

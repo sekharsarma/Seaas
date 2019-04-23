@@ -2,17 +2,17 @@ package com.oracle.oal.seaas.util;
 
 import com.oracle.oal.seaas.crm.apiclient.CRMAPIRESTService;
 import com.oracle.oal.seaas.crm.apiclient.model.LookupList;
-import com.oracle.oal.seaas.util.JerseyClient;
-import com.oracle.oal.seaas.util.TokenProvider;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class JerseyClientTest {
-
+    private static final Logger LOG = Logger.getLogger(JerseyClientTest.class.getName());
 
     public static void main(String[] args) {
         CRMAPIRESTService
@@ -35,9 +35,9 @@ public class JerseyClientTest {
                     .build())
                     .proxyGetCalls(url, headers);
 
-            System.out.println(response.readEntity(String.class));
+            LOG.info(response.readEntity(String.class));
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            LOG.log(Level.SEVERE, "Exception occurred while fetching resources collection", e);
         }
     }
 
@@ -48,21 +48,15 @@ public class JerseyClientTest {
         URI url = null;
         try {
             url = new URI(defaultUrl);
-
             Response response = new JerseyClient(TokenProvider
                     .builder()
                     .withDefaultAuthString()
                     .build())
                     .proxyGetCalls(url, headers);
-
             LookupList result = response.readEntity(LookupList.class);
-            System.out.println("result --->"+ result);
-
-            //System.out.println(response.readEntity(String.class));
+            LOG.info("Lookups: " + result);
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            LOG.log(Level.SEVERE, "Exception occurred while fetching lookups collection", e);
         }
     }
-
-
 }

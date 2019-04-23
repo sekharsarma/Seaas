@@ -2,8 +2,8 @@ package com.oracle.oal.seaas.util;
 
 import com.google.common.collect.ImmutableList;
 import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
 import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.logging.LoggingFeature;
 
 import javax.ws.rs.client.*;
@@ -13,10 +13,10 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.List;
-import org.glassfish.jersey.jackson.JacksonFeature;
+import java.util.logging.Logger;
 
-@Slf4j
 public class JerseyClient {
+    private static final Logger log = Logger.getLogger(JerseyClient.class.getName());
     private Client client;
 
     // We need to remove the following headers from the incoming request.
@@ -47,12 +47,11 @@ public class JerseyClient {
      * @return Response
      */
     public Response proxyGetCalls(@NonNull URI url, @NonNull MultivaluedMap<String, String> headers) {
-        log.debug("MethodEntry : proxyGetCalls");
-        log.info("Making get call with url - {}",url);
+        log.info("Making get call with url " + url);
         WebTarget target = client.target(url);
         Invocation.Builder invocationBuilder = getBuilder(headers, target);
         Response response = invocationBuilder.accept(MediaType.APPLICATION_JSON).get();
-        log.debug("MethodExit : proxyGetCalls");
+        log.info("completed making proxyGetCalls with url " + url);
         return response;
     }
 
@@ -65,12 +64,11 @@ public class JerseyClient {
      * @return Response
      */
     public Response proxyPostCalls(@NonNull URI url, @NonNull String postBody, @NonNull MultivaluedMap<String, String> headers) {
-        log.debug("MethodEntry : proxyPostCalls");
-        log.info("Making post call with url - {}",url);
+        log.info("Making post call with url " + url);
         WebTarget target = client.target(url);
         Invocation.Builder invocationBuilder = getBuilder(headers, target);
         Response response = invocationBuilder.post(Entity.entity(postBody, headers.getFirst(HttpHeaders.CONTENT_TYPE)));
-        log.debug("MethodExit : proxyPostCalls");
+        log.info("Completed making post call with url " + url);
         return response;
     }
 
@@ -84,12 +82,11 @@ public class JerseyClient {
      * @return Response
      */
     public Response proxyPutCalls(@NonNull URI url, @NonNull String postBody, @NonNull MultivaluedMap<String, String> headers) {
-        log.debug("MethodEntry : proxyPutCalls");
-        log.info("Making put call with url - {}",url);
+        log.info("Making put call with url " + url);
         WebTarget target = client.target(url);
         Invocation.Builder invocationBuilder = getBuilder(headers, target);
         Response response = invocationBuilder.put(Entity.entity(postBody, headers.getFirst(HttpHeaders.CONTENT_TYPE)));
-        log.debug("MethodExit : proxyPutCalls");
+        log.info("Completed making put call with url " + url);
         return response;
     }
 
@@ -101,12 +98,11 @@ public class JerseyClient {
      * @return Response
      */
     public Response proxyDeleteCalls(@NonNull URI url, @NonNull MultivaluedMap<String, String> headers) {
-        log.debug("MethodEntry : proxyDeleteCalls");
-        log.info("Making delete call with url - {}",url);
+        log.info("Making delete call with url " + url);
         WebTarget target = client.target(url);
         Invocation.Builder invocationBuilder = getBuilder(headers, target);
         Response response = invocationBuilder.delete();
-        log.debug("MethodExit : proxyDeleteCalls");
+        log.info("Completed making delete call with url " + url);
         return response;
     }
 
@@ -118,12 +114,11 @@ public class JerseyClient {
      * @return Response
      */
     public Response proxyOptionCalls(@NonNull URI url, @NonNull MultivaluedMap<String, String> headers) {
-        log.debug("MethodEntry : proxyOptionCalls");
-        log.info("Making option call with url - {}",url);
+        log.info("Making option call with url " + url);
         WebTarget target = client.target(url);
         Invocation.Builder invocationBuilder = getBuilder(headers, target);
         Response response = invocationBuilder.options();
-        log.debug("MethodExit : proxyOptionCalls");
+        log.info("Completed making option call with url " + url);
         return response;
     }
 
@@ -140,13 +135,10 @@ public class JerseyClient {
 
     private void addOPCAuthorizationHeader(Invocation.Builder builder)
     {
-
-
         String token = String.format("Basic %s",
                 tokenProvider.getToken());
 
         log.info("Adding OPC Authorization Header");
         builder.header(HttpHeaders.AUTHORIZATION,token);
     }
-
 }
