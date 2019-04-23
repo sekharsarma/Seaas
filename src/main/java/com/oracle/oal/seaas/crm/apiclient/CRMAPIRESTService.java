@@ -40,7 +40,7 @@ public class CRMAPIRESTService {
                     .get(url, headers);
 
             lookupList = response.readEntity(LookupList.class);
-            LOG.info("Completed fetching Lookups of type: " + type + ", lookups size : " + lookupList);
+            LOG.info("Completed fetching Lookups of type: " + type + ", lookups size : " + lookupList.getCount());
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Exception occurred while fetching Lookup collection", e);
         }
