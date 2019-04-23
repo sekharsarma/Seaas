@@ -17,12 +17,12 @@ import java.util.concurrent.TimeUnit;
 
 public class CRMAPIClientImpl implements CRMAPIClient {
 
-   private static CRMAPIClientImpl _apiClient = null;
+   private static CRMAPIClientImpl _apiClient;
 
    private  CacheLoader<String, List<Lookup>> lookupCacheLoader;
 
-   LoadingCache<LookupType, List<Lookup>> lookupCache = null;
-   CRMAPIRESTService restService = null;
+   LoadingCache<LookupType, List<Lookup>> lookupCache;
+   CRMAPIRESTService restService;
 
    private CRMAPIClientImpl()
    {
@@ -31,12 +31,13 @@ public class CRMAPIClientImpl implements CRMAPIClient {
        restService = new CRMAPIRESTService();
    }
 
-   public static synchronized CRMAPIClientImpl newInstance() {
-        if(_apiClient == null) {
-            _apiClient = new CRMAPIClientImpl();
-        }
-        return _apiClient;
+   public static synchronized CRMAPIClientImpl getInstance() {
+       return SingletonHelper.INSTANCE;
    }
+
+    private static class SingletonHelper{
+        private static final CRMAPIClientImpl INSTANCE = new CRMAPIClientImpl();
+    }
 
 
     public List<Lookup> getServiceRequestStatuses() {
