@@ -15,6 +15,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.logging.Logger;
 
+// todo: convert this to retryable http client.
 public class HTTPClient {
     private static final Logger log = Logger.getLogger(HTTPClient.class.getName());
     private Client client;

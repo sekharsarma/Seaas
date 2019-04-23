@@ -22,6 +22,7 @@ public class TokenProvider {
 
         private String authString;
 
+        // todo: accept username and password here.
         public TokenProviderBuilder withDefaultAuthString(){
             authString = "ZnVzaW9uLW9hbC1zZXQtaW50Z3Jfd3dAb3JhY2xlLmNvbTpNT1VOdGFpbjEyMw==";
             return  this;

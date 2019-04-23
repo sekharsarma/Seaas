@@ -19,8 +19,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * API REST Service
- * Package level internal service used by Cache API
+ * API REST Service.
+ * Package level internal service used by Cache API.
  *
  */
 class CRMAPIRESTService {
@@ -43,6 +43,7 @@ class CRMAPIRESTService {
      * @return List<Lookup>
      */
     List<Lookup> getLookupCollection(@NonNull LookupType type) {
+        // todo: simplify parameter usage as part of the url
         String defaultUrl = String.format("%s/fndStaticLookups?finder=LookupTypeIsEnabledFinder;BindLookupType=%s" +
                 "&fields=LookupType,LookupCode,Meaning,Description,EnabledFlag,StartDateActive,EndDateActive," +
                 "DisplaySequence,CreatedBy,CreationDate,LastUpdateDate,LastUpdateLogin,LastUpdatedBy", serviceURL, type.getLookupTypeCode());
@@ -56,7 +57,7 @@ class CRMAPIRESTService {
             Response response = httpClient.get(url, headers);
 
             lookupList = response.readEntity(LookupList.class);
-            LOG.info("Completed fetching Lookups of type: " + type + ", lookups size : " + lookupList);
+            LOG.info("Completed fetching Lookups of type: " + type );
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Exception occurred while fetching Lookup collection", e);
         }
