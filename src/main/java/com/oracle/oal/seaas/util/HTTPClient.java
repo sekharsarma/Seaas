@@ -13,6 +13,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 // todo: convert this to retryable http client.
@@ -30,7 +31,8 @@ public class HTTPClient {
 
         ClientConfig config = new ClientConfig();
         this.client = ClientBuilder.newBuilder().withConfig(config).build();
-        client.register(new CustomClientLoggingFilter(log, LoggingFeature.DEFAULT_MAX_ENTITY_SIZE,skipLoggingHeaders));
+        client.register(new LoggingFeature(log, Level.INFO, LoggingFeature.Verbosity.PAYLOAD_ANY,
+                LoggingFeature.DEFAULT_MAX_ENTITY_SIZE));
         client.register(new JacksonFeature());
 
         log.info("HttpClient instantiated");

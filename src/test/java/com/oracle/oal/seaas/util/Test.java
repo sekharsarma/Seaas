@@ -16,15 +16,14 @@ public class Test {
             Thread.sleep(10000);
         }*/
 
-        LOG.info( "" + client.getServiceRequestStatuses());
-        while (true) {
-            Thread.sleep(1000);
-            //LOG.info(" "+ client.getServiceRequestStatuses());
-            LOG.info(" "+client.getResource("parashar.gupta%40oracle.com"));
-        }
+        //LOG.info( "" + client.getServiceRequestStatuses());
+//        while (true) {
+//            Thread.sleep(1000);
+//            //LOG.info(" "+ client.getServiceRequestStatuses());
+//            LOG.info(" "+client.getResource("parashar.gupta%40oracle.com"));
+//        }
 
-
-
+        LOG.info(" "+client.getResource("parashar.gupta%40oracle.com"));
 
     }
 }

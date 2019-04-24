@@ -26,7 +26,7 @@ public class CRMAPIClientImpl implements CRMAPIClient {
 
     CRMAPIRESTService restService;
 
-    private CRMAPIClientImpl()
+    CRMAPIClientImpl()
     {
        lookupCache = buildCache(this::getLookupsFromService);
        resourceCache = buildCache(this::getResourcesFromService);
