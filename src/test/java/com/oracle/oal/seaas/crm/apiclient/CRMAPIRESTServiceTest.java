@@ -22,6 +22,7 @@ public class CRMAPIRESTServiceTest {
 
     @Test
     public void getResourceCollection(){
+        // todo: assertions pending.
         Resource resource = restService.getResource("parashar.gupta%40oracle.com");
     }
 
