@@ -109,10 +109,12 @@
             <version>2.27</version>
         </dependency>
 
+        <!-- This dependency contains the implementation of the JUnit Jupiter test engine that runs our unit tests -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.0.0</version>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.3.1</version>
+            <scope>test</scope>
         </dependency>
 
 
@@ -120,6 +122,17 @@
 
     <build>
         <plugins>
+
+             <!--The Maven Surefire Plugin 2.22.1 provides native support for JUnit 5.
+             If we want to use the native JUnit 5 support of the Maven Surefire Plugin,
+             we must ensure that at least one test engine implementation is found from the classpath.-->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.1</version>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -135,6 +148,8 @@
                     </execution>
                 </executions>
             </plugin>
+
+
         </plugins>
     </build>
 
